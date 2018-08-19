@@ -1,0 +1,13 @@
+/*
+ * Filter JSON resuls by using key name
+ *
+ */
+import groovy.json.*
+
+def jsResp = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+objs = new JsonSlurper().parseText(jsResp)
+
+assert filterbyKey(objs, "<Enter_JSON_Property_Name_Here>")?.name == 19
+static filterbyKey(Map map, key){
+	map.get(key) ?: map.findResult{ k,v -> if (v in map) filterbyKey(v, key)}
+	}

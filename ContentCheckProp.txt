@@ -1,0 +1,22 @@
+/*
+ * JSON property validation against known values array
+ *
+ */
+def jsparser = new groovy.json.JsonSlurper()
+jsparser.setMaxSizeForInMemory(19000000)
+
+def dimscase = [[1,2],[3,4]]
+Integer numofrec = 1
+
+JSres = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+prioObj = jsparser.parseText(JSres)
+
+prioObj['<Enter_JSON_Property_Name_Here>'].each { value -> 
+
+log.info("RecordNum[${numofrec}] Priority value check for ( ${dimscase[0][0]} ) = " + (value == dimscase[0][0]))
+log.info("RecordNum[${numofrec}] Priority value check for ( ${dimscase[0][1]} ) = " + (value == dimscase[0][1]))
+log.info("RecordNum[${numofrec}] Priority value check for ( ${dimscase[1][0]} ) = " + (value == dimscase[1][0]))
+log.info("RecordNum[${numofrec}] Priority value check for ( ${dimscase[1][1]} ) = " + (value == dimscase[1][1]))
+numofrec++
+
+}

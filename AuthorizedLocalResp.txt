@@ -1,0 +1,22 @@
+/* 
+ * Service initialization script checker for testRunner and log.
+ * Used via scheduling (both Local and Remote test environments)
+ */
+import groovy.json.JsonSlurper
+
+def slurp = new JsonSlurper()
+
+Jsonresponselocal = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+Jsonresponseremote = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+parsedinfolocally =  slurp.parseText(Jsonresponselocal)
+parsedinforemotely = slurp.parseText(Jsonresponseremote)
+
+if (parsedinfolocally.Message.contains("denied")){
+log.warn("LOCAL DATA IN PLATFORM NEEDS RENEWAL.."+parsedinfolocally)
+} else
+log.info("ALL LOCAL TEST DATA OK!")
+
+if (parsedinforemotely.Message.contains("denied")) {
+log.warn("REMOTE DATA IN PLATFORM NEEDS RENEWAL.."+parsedinforemotely)
+} else
+log.info("ALL REMOTE TEST DATA OK!")

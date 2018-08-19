@@ -1,0 +1,18 @@
+/*
+ * JSON output length check and validate
+ * 
+ */
+import groovy.json.JsonSlurper
+jsparser.setMaxSizeForInMemory(19000000)
+
+def lines = 1900
+def jsonparse = new JsonSlurper()
+
+Jsonres = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+jsonlines = jsonparse.parseText(Jsonres)
+
+if (jsonlines.size() >= lines)
+{
+log.info("ALL OK..")
+} else
+log.warn("MISSING INFO!" +jsonlines.size())

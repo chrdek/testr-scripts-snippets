@@ -1,0 +1,21 @@
+/*
+ * Html content and links validation 
+ * in json output
+ */
+import groovy.util.XmlSlurper
+def jsparseres = new groovy.json.JsonSlurper()
+
+contentresult = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+jsonout = jsparseres.parseText(contentresult)
+
+jsonout['<Enter_JSON_Property_Name_Here>'].each {
+
+ //Additional response content cleanup operations..
+	content -> def outhtml = content.replaceAll("/\"/","").replaceAll("BR","BR/")
+	                                                      .replaceAll("arr://","")
+	                                                      .replaceAll(";","")
+	//log.info("HTML OUT: "+outhtml)
+def xmlout = new XmlSlurper().parseText("<html>"+outhtml+"</html>")
+log.info("Lines total : "+xmlout.BR.size())
+log.info("Links total : "+xmlout.a.size())
+}
