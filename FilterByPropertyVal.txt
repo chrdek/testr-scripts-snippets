@@ -1,0 +1,14 @@
+/*
+ * Filter json output per property values
+ * display results with totals
+ */
+def jsonparservals = new groovy.json.JsonSlurper()
+
+resultfromTS = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+jsfilt = jsonparservals.parseText(resultfromTS).findAll { it.SubLevel == 19 }
+jsfiltProp = jsonparservals.parseText(resultfromTS).find{ it.SubLevel == 19 }.Entity
+jsfilt.each { val -> log.info("Filtered Result: " + val) }
+
+log.info("total of filtered output: ${jsfilt.size()}".toUpperCase()+" per Property value of ${jsfiltProp}")
+log.info("properties used:".toUpperCase())
+jsfilt.each { objvals -> log.info("Property name:${objvals} with value: ${objvals.Entity}") }

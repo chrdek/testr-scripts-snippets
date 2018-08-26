@@ -1,0 +1,15 @@
+/*
+ * Filtering deeply nested objects 
+ * in json output, filter by nested content
+ */
+import groovy.json.JsonSlurper
+jsonTxtRes = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+def names = new JsonSlurper().parseText(jsonTxtRes)
+                             .data
+                             .children
+                             .find { 'SampleName' in it.nodes.value }
+                             .children
+                             .nodes
+                             .flatten()
+                             .findAll { it.key == 'NAME' }
+                             .value

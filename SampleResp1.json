@@ -1,0 +1,13 @@
+[
+      {
+      "Status": 1,
+      "Valid": 4,
+      "RecNum": 5,
+      "Content": "<h2><a href=\"http://addr1/val1\">Header 1:FirstName, Last<\/a><\/h2><span class=\"entity\">Main Header 2 <\/span> <span class=\"time\">15:02:40<\/span><BR> <span class=\"lbl\">Label 2<\/span> Brand #220230 <span class=\"lbl\">Label 3<\/span> Test Text 2 <span class=\"lbl\">Description 3<\/span> <BR><a href=\"http://addr1/val1\">Link 2<\/a>",
+      "MainIdentifier": 48,
+      "SecondaryIdentifier": 148,
+      "Label": "Group Name - 4043B",
+      "Group": "Main",
+      "SubGroupIdentifier": 444205
+      }
+]

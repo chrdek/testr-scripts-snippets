@@ -1,0 +1,17 @@
+/*
+ * Search in Json output per specific properties and retrieve
+ * relevant content with totals
+ */
+def jsonparser = new groovy.json.JsonSlurper()
+// Optional predefined array of properties..
+def contentvalues = ['SubArea', 'Entity','TextEntryHTML']
+
+jsonresult = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+jsonOutput = jsonparser.parseText(jsonresult)
+
+def objout = jsonOutput.Entity.findAll{ it == "Addresses" }
+def contentout = jsonOutput.TextEntryHTML.findAll{ it.contains("Addr") }
+objout.each{ obj -> log.info("JSON data:" +obj) }
+contentout.each{ contentobj -> log.info("Corresp. Html content:"+contentobj) }
+log.info("Total of records:  ${objout.size()}".toUpperCase())
+log.info("Total of corresp. content: ${contentout.size()}".toUpperCase())
