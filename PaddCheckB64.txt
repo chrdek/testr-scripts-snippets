@@ -1,0 +1,11 @@
+/*
+ * Check whether Base64 content on json response has padding, return appropriate status of TRUE/FALSE 
+ */
+def jsonparser = new groovy.json.JsonSlurper()
+
+jsonresult = testRunner.testCase.getTestStepByName("<Enter_Test_Step_Name_Here>").getPropertyValue("response")
+jsonOut = jsonparser.parseText(jsonresult)
+def paddPart = jsonOut.base64msg
+
+paddPart.each{ paddObj -> log.info("Contains padd. status:  ${paddObj.contains('=')}".toUpperCase()) }
+log.info("Output msg b64: ${paddPart}")
